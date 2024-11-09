@@ -1,0 +1,80 @@
+.wrapper {
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  display: flex;
+  align-items: center;
+}
+.controls_container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-end;
+  /* justify-content: space-between; */
+}
+.qty_controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  /* justify-self: left; */
+  /* flex-grow: 1; */
+}
+.qty_controls input {
+  /* min-width: 40px; */
+  /* width: fit-content; */
+  padding: 4px 8px;
+  /* border-radius: var(--border-radius); */
+  /* border: 1px solid #00000050; */
+  border: none;
+  /* font-size: 14px; */
+  text-align: center;
+  font-weight: 600;
+  field-sizing: content;
+}
+.qty_controls button {
+  width: 32px;
+  height: 32px;
+  /* padding: 8px 16px; */
+  /* background-color: var(--yellow); */
+  border-radius: var(--border-radius);
+  position: relative;
+}
+.qty_controls button > * {
+  margin: 0;
+  padding: 0;
+  left: 8px;
+  position: absolute;
+  top: 6px;
+}
+.price {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-start;
+  padding: 0 16px;
+  justify-self: flex-start;
+}
+.price span {
+  display: block;
+  font-size: 14px;
+  margin-right: 2px;
+  font-weight: 400;
+}
+.bin {
+  color: #0000005e;
+  margin-top: 2px;
+}
+.delete_button {
+  /* justify-self: flex-end; */
+  /* justify-items: flex-end; */
+  /* display: flex; */
+  /* flex-grow: 1; */
+}
+.name {
+  margin-bottom: 24px;
+  font-size: 18px;
+  font-weight: 500;
+}
