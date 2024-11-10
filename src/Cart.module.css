@@ -45,11 +45,8 @@
   color: #0000005e;
 }
 .total {
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid #0000001a;
   display: flex;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   align-items: center;
 }
 .total_price {
@@ -61,4 +58,20 @@
 .total_price span {
   font-size: 14px;
   font-weight: 400;
+}
+.checkout {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #0000001a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.checkout_button {
+  line-height: 40px;
+  /* color: white; */
+  background-color: var(--yellow);
+  padding: 0 24px;
+  border-radius: var(--border-radius);
+  font-weight: 500;
 }

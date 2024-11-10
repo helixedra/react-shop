@@ -1,11 +1,8 @@
 import ProductItem from "./ProductItem";
-import { ShoppingCart } from "./CartContext";
-import { useContext } from "react";
 import HeaderCart from "./HeaderCart";
+import productData from "./data.json";
 
 function HomePage() {
-  const { productData } = useContext(ShoppingCart);
-
   return (
     <div>
       <header className="header">

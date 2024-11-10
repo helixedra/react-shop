@@ -1,6 +1,6 @@
+// main.jsx
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-// import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./HomePage";
 import { CartProvider } from "./CartContext";

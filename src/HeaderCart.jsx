@@ -14,9 +14,11 @@ function HeaderCart() {
       return 0;
     }
   }
+
   useEffect(() => {
     setCartQty(handleCartQty());
   }, [cart]);
+
   return (
     <button className={styles.cart} onClick={toggleCartModal}>
       <ShoppingBag />

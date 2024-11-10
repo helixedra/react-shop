@@ -1,6 +1,7 @@
+// CartListItem.jsx
 import styles from "./CartListItem.module.css";
 import { ShoppingCart } from "./CartContext";
-import { useContext, useEffect, useState, useMemo } from "react";
+import { useContext, useEffect, useState, useMemo, useCallback } from "react";
 import { Minus, Plus, Trash2 } from "lucide-react";
 
 function CartListItem({ id, qty }) {
@@ -12,58 +13,40 @@ function CartListItem({ id, qty }) {
   }, [id, productData]);
 
   const subTotal = useMemo(() => {
-    return parseFloat(parseFloat(itemData.price).toFixed(2) * qtyState).toFixed(
-      2
-    );
+    return parseFloat(itemData.price * (qtyState || 0)).toFixed(2);
   }, [itemData.price, qtyState]);
 
-  // const itemData = productData.find((item) => item.id === id);
-
-  // const [subTotal, setSubTotal] = useState(
-  //   parseFloat(itemData.price).toFixed(2) * qty
-  // );
-  const handleIncreaseQty = () => {
+  const handleIncreaseQty = useCallback(() => {
     dispatch({ type: "add_product", product: id });
-    setQtyState((prevQty) => prevQty + 1);
-  };
-  const handleQtyInput = (event) => {
-    if (isNaN(qtyState)) {
-      return;
-    }
-    const inputQty = event.target.value;
-    const parsedQty = parseInt(inputQty, 10);
+    setQtyState((prevQty) => (prevQty || 0) + 1);
+  }, [dispatch, id]);
 
-    if (!isNaN(parsedQty) && parsedQty >= 1) {
-      setQtyState(parsedQty);
-    } else {
-      setQtyState("");
-    }
-  };
-  const handleInputBlur = () => {
-    if (isNaN(qtyState) || qtyState === "") {
-      setQtyState(1);
-    }
-  };
-
-  useEffect(() => {
-    if (isNaN(qtyState) || qtyState === "") {
-      return;
-    }
-    dispatch({ type: "change_qty", product: { id, qty: qtyState } });
-    // setSubTotal(
-    //   parseFloat(parseFloat(itemData.price).toFixed(2) * qtyState).toFixed(2)
-    // );
-    // subTotal();
-  }, [qtyState, dispatch, id]);
-
-  const handleDecreaseQty = () => {
-    if (qty > 1) {
+  const handleDecreaseQty = useCallback(() => {
+    if (qtyState > 1) {
       dispatch({ type: "decrease_product", product: id });
-      setQtyState(qtyState - 1);
+      setQtyState((prevQty) => prevQty - 1);
     } else {
       dispatch({ type: "delete_product", product: id });
     }
-  };
+  }, [dispatch, id, qtyState]);
+
+  const handleQtyInput = useCallback((event) => {
+    const inputQty = event.target.value;
+    const parsedQty = parseInt(inputQty, 10);
+    setQtyState(isNaN(parsedQty) ? "" : parsedQty); // Зберігаємо "" якщо поле порожнє
+  }, []);
+
+  const handleInputBlur = useCallback(() => {
+    if (qtyState === "" || qtyState < 1) {
+      setQtyState(1); // Встановлюємо мінімум після втрати фокусу
+    }
+  }, [qtyState]);
+
+  useEffect(() => {
+    if (qtyState !== qty && qtyState !== "") {
+      dispatch({ type: "change_qty", product: { id, qty: qtyState } });
+    }
+  }, [qtyState, qty, dispatch, id]);
 
   return (
     <div className={styles.wrapper}>
@@ -76,15 +59,14 @@ function CartListItem({ id, qty }) {
             </button>
             <input
               type="number"
-              onChange={(e) => handleQtyInput(e)}
-              onBlur={handleInputBlur}
+              onChange={handleQtyInput}
+              onBlur={handleInputBlur} // Встановлюємо значення після втрати фокусу
               value={qtyState}
             />
             <button onClick={handleIncreaseQty}>
               <Plus size={20} />
             </button>
           </div>
-          {/* <div>{itemData.price}</div> */}
           <div className={styles.price}>
             <span>$</span>
             {subTotal}

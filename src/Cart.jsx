@@ -1,4 +1,4 @@
-import { useRef, useState, useContext, useEffect, useMemo } from "react";
+import { useRef, useContext, useEffect, useMemo } from "react";
 import { ShoppingCart } from "./CartContext";
 import CartList from "./CartList";
 import styles from "./Cart.module.css";
@@ -52,11 +52,14 @@ function Cart() {
         )}
       </div>
       {cart && cart.length > 0 ? (
-        <div className={styles.total}>
-          Total:
-          <div className={styles.total_price}>
-            <span>$</span>
-            {cartTotal}
+        <div className={styles.checkout}>
+          <button className={styles.checkout_button}>Checkout</button>
+          <div className={styles.total}>
+            Total:
+            <div className={styles.total_price}>
+              <span>$</span>
+              {cartTotal}
+            </div>
           </div>
         </div>
       ) : (
